@@ -1,10 +1,12 @@
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import unittest
 import time
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
+    '''тест нового посетителя'''
 
     def setUp(self):
 
@@ -23,7 +25,7 @@ class NewVisitorTest(unittest.TestCase):
         '''тест: можно начать список и получить его позже'''
         #Эдит слышала про крутое приложение со списком дел. Она
         #решает оценить его домашнюю страницу
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
 
         #Она видит. что загаловок и шапка страницы говорят о
         #списках неотложных дел
@@ -73,7 +75,7 @@ class NewVisitorTest(unittest.TestCase):
         # self.assertIn('2: Сделать мушку из павлиньих перьев', [row.text for row in rows])
         self.check_for_row_in_list_table('1: Купить павлиньи перья')
         self.check_for_row_in_list_table('2: Сделать мушку из павлиньих перьев')
-        
+
 
         #Эдит интересно, запомнит ли сайт ее список. Далее она видит, что сайт
         #сгенерировал для нее уникальный URL- адрес - об этом выводится небольшой
@@ -85,5 +87,5 @@ class NewVisitorTest(unittest.TestCase):
 
         #Удовлетворенная, она ложится спать
 
-if __name__ == '__main__':
-    unittest.main(warnings='ignore')
+# if __name__ == '__main__':
+#     unittest.main(warnings='ignore')
