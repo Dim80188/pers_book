@@ -2,6 +2,7 @@ from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import WebDriverException
 import unittest
 import time
 
@@ -25,6 +26,7 @@ class NewVisitorTest(LiveServerTestCase):
                 table = self.browser.find_element(By.ID, 'id_list_table')
                 rows = table.find_elements(By.TAG_NAME, 'tr')
                 self.assertIn(row_text, [row.text for row in rows])
+
                 return
             except (AssertionError, WebDriverException) as e:
                 if time.time() - start_time > MAX_WAIT:
